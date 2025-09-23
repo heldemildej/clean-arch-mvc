@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.vsidx
+
+# Build
+bin/
+obj/
+
+# Pacotes NuGet
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# Rider / JetBrains (se usar)
+.idea/
