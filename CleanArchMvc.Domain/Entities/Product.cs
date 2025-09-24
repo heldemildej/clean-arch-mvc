@@ -7,19 +7,23 @@ using System.Threading.Tasks;
 
 namespace CleanArchMvc.Domain.Entities 
 {
+    // Produto de uma categoria
     public sealed class Product : Entity
     {
+        // Propriedades do produto.
         public string Name { get; private set; }
         public string Description { get; private set; }
         public decimal Price { get; private set; }
         public int Stock { get; private set; }
         public string Img { get; private set; }
 
+        // Construtor para novo produto.
         public Product(string name, string descrition, decimal price, int stock, string img)
         {
             ValidateDomain(name, descrition, price, stock, img);
         }
 
+        // Construtor para produto existente.
         public Product(int id, string name, string descrition, decimal price, int stock, string img)
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value");
@@ -27,12 +31,14 @@ namespace CleanArchMvc.Domain.Entities
             ValidateDomain(name, descrition, price, stock, img);
         }
 
+        // Atualiza os dados do produto.
         public void Update(int id, string name, string descrition, decimal price, int stock, string img, int categoryId)
         {
             ValidateDomain(name, descrition, price, stock, img);
             CategoryId = categoryId;
         }
 
+        // Valida regras de negócio antes de aplicar mudanças.
         private void ValidateDomain(string name, string descrition, decimal price, int stock, string img)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(name),
@@ -61,6 +67,7 @@ namespace CleanArchMvc.Domain.Entities
             Img = img;
         }
 
+        // Relação N:1 → cada produto pertence a uma categoria.
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
