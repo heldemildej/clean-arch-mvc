@@ -1,19 +1,65 @@
-﻿using System;
+﻿using CleanArchMvc.Domain.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchMvc.Domain.Entities
+namespace CleanArchMvc.Domain.Entities 
 {
-    public class Product
+    public sealed class Product : Entity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public int Stock { get; set; }
-        public string Img { get; set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public decimal Price { get; private set; }
+        public int Stock { get; private set; }
+        public string Img { get; private set; }
+
+        public Product(string name, string descrition, decimal price, int stock, string img)
+        {
+            ValidateDomain(name, descrition, price, stock, img);
+        }
+
+        public Product(int id, string name, string descrition, decimal price, int stock, string img)
+        {
+            DomainExceptionValidation.When(id < 0, "Invalid Id value");
+            Id = id;
+            ValidateDomain(name, descrition, price, stock, img);
+        }
+
+        public void Update(int id, string name, string descrition, decimal price, int stock, string img, int categoryId)
+        {
+            ValidateDomain(name, descrition, price, stock, img);
+            CategoryId = categoryId;
+        }
+
+        private void ValidateDomain(string name, string descrition, decimal price, int stock, string img)
+        {
+            DomainExceptionValidation.When(string.IsNullOrEmpty(name),
+                "Invalid name. Name requered");
+
+            DomainExceptionValidation.When(name.Length < 3,
+                "Invalid name, too short, minimum 3 characteres");
+
+            DomainExceptionValidation.When(string.IsNullOrEmpty(descrition),
+                "Invalid descrition. Descrition requered");
+
+            DomainExceptionValidation.When(descrition.Length < 5,
+                "Invalid desction, too short, minimum 5 characteres");
+
+            DomainExceptionValidation.When(price < 0, "Invallid price value.");
+
+            DomainExceptionValidation.When(stock < 0, "Invallid stock value.");
+
+            DomainExceptionValidation.When(img.Length > 250, 
+                "Invallid image name, too long, maximum 250 characteres.");
+
+            Name = name;
+            Description = descrition;
+            Price = price;
+            Stock = stock;
+            Img = img;
+        }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
