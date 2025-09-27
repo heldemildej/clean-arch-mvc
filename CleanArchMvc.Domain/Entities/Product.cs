@@ -51,13 +51,13 @@ namespace CleanArchMvc.Domain.Entities
                 "Invalid descrition. Descrition requered");
 
             DomainExceptionValidation.When(descrition.Length < 5,
-                "Invalid desction, too short, minimum 5 characteres");
+                "Invalid descrition, too short, minimum 5 characteres");
 
             DomainExceptionValidation.When(price < 0, "Invalid price value.");
 
             DomainExceptionValidation.When(stock < 0, "Invalid stock value.");
 
-            DomainExceptionValidation.When(img.Length > 250, 
+            DomainExceptionValidation.When(img?.Length > 250, 
                 "Invalid image name, too long, maximum 250 characteres.");
 
             Name = name;
