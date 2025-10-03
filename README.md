@@ -11,7 +11,7 @@ estruturando um projeto em múltiplas camadas.
 
 ## Estrutura da Solução
 
-A solução foi criada como **monólito modularizado** em 5 projetos:
+A solução foi criada como **monólito** contendo 5 camadas:
 
 -   **CleanArchMvc.Domain** → contém as entidades, interfaces,
     validações e regras de negócio\
@@ -26,7 +26,7 @@ A solução foi criada como **monólito modularizado** em 5 projetos:
 ## Progresso Atual
 
 -   Criada a solução `CleanArchMvc`\
--   Adicionados os 5 projetos da solução\
+-   Adicionados as 5 camadas da solução\
 -   Criadas as pastas dentro da camada Domain (`Entities`, `Interfaces`,
     `Validations`)\
 -   Implementadas as entidades Category e Product (modelo anêmico
@@ -37,7 +37,7 @@ A solução foi criada como **monólito modularizado** em 5 projetos:
 -   Adicionado os tests unitários para `Category` na camada Domain
 -   Adicionado os tests unitários para `Product` na camada Domain
 
-**Próximo passo:** fazer ajustes no modelo de ajustes Product e começar a trabalhar na camada de Infraestrutura 
+**Próximo passo:** fazer ajustes no modelo de dominio Product e começar a trabalhar na camada de Infraestrutura 
 
 ## Tecnologias Utilizadas
 
