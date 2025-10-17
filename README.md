@@ -18,12 +18,6 @@ Objetivo
 
 Servir como base sólida para projetos backend profissionais, aplicando boas práticas, modelo de domínio rico, testes de unidade e segurança.
 
-```
-Convenção de Commits
-
-feat • fix • docs • test • refactor • chore
-```
-
 ## Convenções de Commit
 
 -   feat: nova funcionalidade\
