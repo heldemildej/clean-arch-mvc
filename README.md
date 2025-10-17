@@ -14,7 +14,7 @@ WebApi (a implementar) → Exposição via API + Autenticação JWT + Segurança
 
 ❌ Sem camada WebUI (MVC/Razor/Views) — o foco é backend puro, com domínio forte, testes e API segura.
 
-Objetivo
+##Objetivo
 
 Servir como base sólida para projetos backend profissionais, aplicando boas práticas, modelo de domínio rico, testes de unidade e segurança.
 
