@@ -1,72 +1,27 @@
 # CleanArchMvc
 
-Projeto didático desenvolvido no curso **Clean Architecture Essencial -
-ASP.NET Core 5.0 e C#** com o formador **Macoratti**.
+Projeto backend em .NET estruturado com Clean Architecture + DDD, organizado em 5 camadas:
 
-## Objetivo
+Domain → Entidades, regras de negócio e validações (com testes de unidade)
 
-Aprender e aplicar os conceitos de **Clean Architecture**, **DDD
-(Domain-Driven Design)** e boas práticas de desenvolvimento em .NET,
-estruturando um projeto em múltiplas camadas.
+Application → Casos de uso / serviços da aplicação
 
-## Estrutura da Solução
+Infra.Data → Repositórios e persistência
 
-A solução foi criada como **monólito** contendo 5 camadas:
+Infra.IoC → Injeção de dependências
 
--   **CleanArchMvc.Domain** → contém as entidades, interfaces,
-    validações e regras de negócio\
--   **CleanArchMvc.Application** → casos de uso e orquestração da lógica
-    de aplicação\
--   **CleanArchMvc.Infra.Data** → acesso a dados, repositórios e
-    persistência\
--   **CleanArchMvc.Infra.IoC** → configuração de injeção de
-    dependências\
--   **CleanArchMvc.WebUI** → interface com o usuário (API/Controllers)
+WebApi (a implementar) → Exposição via API + Autenticação JWT + Segurança
 
-## Progresso Atual
+❌ Sem camada WebUI (MVC/Razor/Views) — o foco é backend puro, com domínio forte, testes e API segura.
 
--   Criada a solução `CleanArchMvc`\
--   Adicionados as 5 camadas da solução\
--   Criadas as pastas dentro da camada Domain (`Entities`, `Interfaces`,
-    `Validations`)\
--   Implementadas as entidades Category e Product (modelo anêmico
-    inicial)\
--   Criadas as classes base `Entity` e `DomainExceptionValidation`\
--   Entidades Category e Product enriquecidas com validações de domínio\
--   Criadas as interfaces `ICategoryRepository` e `IProductRepository`
--   Adicionado os tests unitários para `Category` na camada Domain
--   Adicionado os tests unitários para `Product` na camada Domain
+Objetivo
 
-**Próximo passo:** fazer ajustes no modelo de dominio Product e começar a trabalhar na camada de Infraestrutura 
+Servir como base sólida para projetos backend profissionais, aplicando boas práticas, modelo de domínio rico, testes de unidade e segurança.
 
-## Tecnologias Utilizadas
+```
+Convenção de Commits
 
--   .NET 5.0 / C#\
--   ASP.NET Core Web API\
--   Clean Architecture\
--   DDD (Domain-Driven Design)
-
-## Estrutura de Pastas (Domain)
-
-    CleanArchMvc.Domain/
-        Entities/ 
-            Category.cs
-            Product.cs
-            Entity.cs
-        Interfaces/ 
-             ICategoryRepository
-             IProductRepository
-        Validations/ 
-            DomainExceptionValidation.cs
-
-## Como executar o projeto
-
-``` bash
-# Restaurar pacotes
-dotnet restore
-
-# Compilar a solução
-dotnet build
+feat • fix • docs • test • refactor • chore
 ```
 
 ## Convenções de Commit
@@ -77,7 +32,3 @@ dotnet build
 -   docs: mudanças na documentação (ex.: README)\
 -   test: criação ou atualização de testes\
 -   refactor: refatoração sem alterar comportamento
-
-## Autor
-
-**Heldemilde João**
