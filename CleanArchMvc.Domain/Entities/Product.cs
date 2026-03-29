@@ -18,9 +18,9 @@ namespace CleanArchMvc.Domain.Entities
         public string Img { get; private set; }
 
         // Construtor para novo produto.
-        public Product(string name, string descrition, decimal price, int stock, string img)
+        public Product(string name, string description, decimal price, int stock, string img)
         {
-            ValidateDomain(name, descrition, price, stock, img);
+            ValidateDomain(name, description, price, stock, img);
         }
 
         // Construtor para produto existente.
