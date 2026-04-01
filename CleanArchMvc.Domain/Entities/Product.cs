@@ -67,6 +67,11 @@ namespace CleanArchMvc.Domain.Entities
             Img = img;
         }
 
+        public void Update(string name, string description, decimal price, int stock, string img)
+        {
+            throw new NotImplementedException();
+        }
+
         // Relação N:1 → cada produto pertence a uma categoria.
         public int CategoryId { get; set; }
         public Category Category { get; set; }
