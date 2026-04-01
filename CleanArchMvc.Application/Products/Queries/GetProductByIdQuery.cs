@@ -1,9 +1,9 @@
-﻿using CleanArchMvc.Application.DTOs;
+﻿using CleanArchMvc.Domain.Entities;
 using MediatR;
 
-namespace CleanArchMvc.Application.Product.Queries
+namespace CleanArchMvc.Application.Products.Queries
 {
-    public class GetProductByIdQuery : IRequest<ProductDTO>
+    public class GetProductByIdQuery : IRequest<Product>
     {
         public int Id { get; set; }
 
