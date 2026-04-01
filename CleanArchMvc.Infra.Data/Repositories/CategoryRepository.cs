@@ -21,7 +21,7 @@ public class CategoryRepository : ICategoryRepository
         return category;
     }
 
-    public async Task<IEnumerable<Category>> GetCategories()
+    public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
         return await _categoryContext.Categories.ToListAsync();
     }
