@@ -1,16 +1,13 @@
+using CleanArchMvc.Application.Products.Handlers;
+using CleanArchMvc.Infra.IoC;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace CleanArchMvc.API
 {
@@ -23,25 +20,42 @@ namespace CleanArchMvc.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Configura serviços da aplicação
         public void ConfigureServices(IServiceCollection services)
         {
-
+            // Adiciona Controllers
             services.AddControllers();
+
+            // Adiciona Swagger para documentação da API
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchMvc.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "CleanArchMvc.API",
+                    Version = "v1"
+                });
             });
+
+            // Registra serviços da nossa camada Infrastructure (IoC)
+            services.AddInfrastructure(Configuration);
+
+            // Registra MediatR para Commands e Queries
+            services.AddMediatR(typeof(ProductCreateCommandHandler).Assembly);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Configura o pipeline HTTP
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Swagger habilitado apenas em desenvolvimento
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchMvc.API v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchMvc.API v1");
+                });
             }
 
             app.UseHttpsRedirection();
