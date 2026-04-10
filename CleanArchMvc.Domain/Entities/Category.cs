@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CleanArchMvc.Domain.Entities
@@ -47,6 +48,7 @@ namespace CleanArchMvc.Domain.Entities
         }
 
         // Relação 1:N → uma categoria pode ter vários produtos.
+        [JsonIgnore]
         public ICollection<Product> Products { get; set; }
     }
 }
