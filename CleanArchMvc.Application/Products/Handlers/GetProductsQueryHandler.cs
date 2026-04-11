@@ -1,25 +1,27 @@
-﻿using CleanArchMvc.Domain.Entities;
-using CleanArchMvc.Domain.Interfaces;
+﻿using AutoMapper;
+using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Products.Queries;
+using CleanArchMvc.Domain.Interfaces;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchMvc.Application.Products.Handlers
+public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<ProductDTO>>
 {
-    public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<Product>>
+    private readonly IProductRepository _productRepository;
+    private readonly IMapper _mapper;
+
+    public GetProductsQueryHandler(IProductRepository productRepository, IMapper mapper)
     {
-        private readonly IProductRepository _productRepository;
+        _productRepository = productRepository;
+        _mapper = mapper;
+    }
 
-        public GetProductsQueryHandler(IProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
+    public async Task<IEnumerable<ProductDTO>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    {
+        var products = await _productRepository.GetProducts();
 
-        public async Task<IEnumerable<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
-        {
-            return await _productRepository.GetProducts();
-        }
+        return _mapper.Map<IEnumerable<ProductDTO>>(products);
     }
 }

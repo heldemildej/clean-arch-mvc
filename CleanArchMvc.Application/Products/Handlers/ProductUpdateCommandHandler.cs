@@ -1,30 +1,31 @@
-﻿using CleanArchMvc.Domain.Entities;
-using CleanArchMvc.Domain.Interfaces;
+﻿using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Application.Products.Commands;
+using CleanArchMvc.Application.DTOs;
 using MediatR;
+using AutoMapper;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
 
 namespace CleanArchMvc.Application.Products.Handlers
 {
-    public class ProductUpdateCommandHandler : IRequestHandler<ProductUpdateCommand, Product>
+    public class ProductUpdateCommandHandler : IRequestHandler<ProductUpdateCommand, ProductDTO>
     {
         private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-        public ProductUpdateCommandHandler(IProductRepository productRepository)
+        public ProductUpdateCommandHandler(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Product> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<ProductDTO> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetByIdAsync(request.Id);
 
             if (product == null)
-            {
-                throw new ApplicationException("Entity could not be found.");
-            }
+                throw new ApplicationException("Product could not be found");
 
             product.Update(
                 request.Name,
@@ -36,7 +37,9 @@ namespace CleanArchMvc.Application.Products.Handlers
 
             product.CategoryId = request.CategoryId;
 
-            return await _productRepository.UpdateAsync(product);
+            var result = await _productRepository.UpdateAsync(product);
+
+            return _mapper.Map<ProductDTO>(result);
         }
     }
 }
