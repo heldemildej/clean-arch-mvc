@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanArchMvc.Application.DTOs;
+using MediatR;
 
 namespace CleanArchMvc.Application.Products.Commands
 {
-    public class ProductCreateCommand : ProductCommand
+    public class ProductCreateCommand : ProductCommand, IRequest<ProductDTO>
     {
     }
 }

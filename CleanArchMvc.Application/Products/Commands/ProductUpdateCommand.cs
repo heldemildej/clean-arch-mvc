@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using CleanArchMvc.Application.DTOs;
 
 namespace CleanArchMvc.Application.Products.Commands
 {
-    public class ProductUpdateCommand : ProductCommand
+    public class ProductUpdateCommand : ProductCommand, IRequest<ProductDTO>
     {
         public int Id { get; set; }
     }

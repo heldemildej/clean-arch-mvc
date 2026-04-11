@@ -4,7 +4,7 @@ using MediatR;
 namespace CleanArchMvc.Application.Products.Commands
 {
     // Command base para Product
-    public abstract class ProductCommand : IRequest<Product>
+    public abstract class ProductCommand 
     {
         public string Name { get; set; }
         public string Description { get; set; }
