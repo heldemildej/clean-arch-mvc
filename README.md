@@ -1,83 +1,61 @@
 # CleanArchMvc
 
-Projeto didático desenvolvido no curso **Clean Architecture Essencial -
-ASP.NET Core 5.0 e C#** com o formador **Macoratti**.
+Projeto desenvolvido com o objetivo de aplicar os conceitos de Clean Architecture, Domain-Driven Design (DDD) e boas práticas de desenvolvimento em ASP.NET Core.
 
-## Objetivo
+## Descrição
 
-Aprender e aplicar os conceitos de **Clean Architecture**, **DDD
-(Domain-Driven Design)** e boas práticas de desenvolvimento em .NET,
-estruturando um projeto em múltiplas camadas.
+O projeto consiste numa aplicação estruturada em camadas, seguindo os princípios da Clean Architecture, com separação clara de responsabilidades entre domínio, aplicação, infraestrutura e interface.
+
+A solução evoluiu a partir de um modelo didático e foi aprimorada com a implementação de CQRS, MediatR, AutoMapper e boas práticas de organização de código.
 
 ## Estrutura da Solução
 
-A solução foi criada como **monólito modularizado** em 5 projetos:
+A solução está organizada em cinco projetos principais:
 
--   **CleanArchMvc.Domain** → contém as entidades, interfaces,
-    validações e regras de negócio\
--   **CleanArchMvc.Application** → casos de uso e orquestração da lógica
-    de aplicação\
--   **CleanArchMvc.Infra.Data** → acesso a dados, repositórios e
-    persistência\
--   **CleanArchMvc.Infra.IoC** → configuração de injeção de
-    dependências\
--   **CleanArchMvc.WebUI** → interface com o usuário (API/Controllers)
+- CleanArchMvc.Domain: contém as entidades e regras de negócio do domínio
+- CleanArchMvc.Application: contém os casos de uso, DTOs, comandos, consultas e handlers
+- CleanArchMvc.Infra.Data: responsável pelo acesso a dados e implementação dos repositórios
+- CleanArchMvc.Infra.IoC: configuração de injeção de dependência
+- CleanArchMvc.API: camada de apresentação (controllers e endpoints)
 
-## Progresso Atual
+## Funcionalidades implementadas
 
--   Criada a solução `CleanArchMvc`\
--   Adicionados os 5 projetos da solução\
--   Criadas as pastas dentro da camada Domain (`Entities`, `Interfaces`,
-    `Validations`)\
--   Implementadas as entidades Category e Product (modelo anêmico
-    inicial)\
--   Criadas as classes base `Entity` e `DomainExceptionValidation`\
--   Entidades Category e Product enriquecidas com validações de domínio\
--   Criadas as interfaces `ICategoryRepository` e `IProductRepository`
--   Adicionado os tests unitários para `Category` na camada Domain
--   Adicionado os tests unitários para `Product` na camada Domain
+- Gestão de produtos
+- Gestão de categorias
+- Implementação de CQRS com MediatR
+- Mapeamento de objetos com AutoMapper
+- Validações de domínio e aplicação
+- Separação de responsabilidades por camadas
+- API REST estruturada
+- Integração com base de dados relacional
 
-**Próximo passo:** fazer ajustes no modelo de ajustes Product e começar a trabalhar na camada de Infraestrutura 
+## Tecnologias utilizadas
 
-## Tecnologias Utilizadas
+- ASP.NET Core Web API
+- C#
+- Entity Framework Core
+- MediatR
+- AutoMapper
+- SQL Server
+- Clean Architecture
+- DDD (Domain-Driven Design)
 
--   .NET 5.0 / C#\
--   ASP.NET Core Web API\
--   Clean Architecture\
--   DDD (Domain-Driven Design)
+## Status do projeto
 
-## Estrutura de Pastas (Domain)
+Projeto concluído em termos de estrutura base e funcionalidades principais.
 
-    CleanArchMvc.Domain/
-        Entities/ 
-            Category.cs
-            Product.cs
-            Entity.cs
-        Interfaces/ 
-             ICategoryRepository
-             IProductRepository
-        Validations/ 
-            DomainExceptionValidation.cs
+Próximos passos possíveis incluem:
+- Implementação de autenticação com JWT
 
-## Como executar o projeto
 
-``` bash
-# Restaurar pacotes
-dotnet restore
+## Convenções de commit
 
-# Compilar a solução
-dotnet build
-```
-
-## Convenções de Commit
-
--   feat: nova funcionalidade\
--   fix: correção de bug\
--   chore: manutenção/configuração (ex.: gitignore)\
--   docs: mudanças na documentação (ex.: README)\
--   test: criação ou atualização de testes\
--   refactor: refatoração sem alterar comportamento
+- feat: nova funcionalidade
+- fix: correção de erro
+- refator: refatoração de código
+- chore: manutenção de projeto
+- docs: documentação
 
 ## Autor
 
-**Heldemilde João**
+Heldemilde João
