@@ -1,5 +1,7 @@
-﻿using CleanArchMvc.Application.Products.Commands;
+﻿using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Application.Products.Commands;
 using CleanArchMvc.Application.Products.Queries;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,10 +14,12 @@ namespace CleanArchMvc.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IMediator mediator)
+        public ProductsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -39,8 +43,8 @@ namespace CleanArchMvc.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ProductCreateCommand command)
         {
-            if (command == null)
-                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var result = await _mediator.Send(command);
 
@@ -48,14 +52,17 @@ namespace CleanArchMvc.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] ProductUpdateCommand command)
+        public async Task<IActionResult> Put([FromBody] ProductDTO dto)
         {
-            if (command == null)
-                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             try
             {
+                var command = _mapper.Map<ProductUpdateCommand>(dto);
+
                 var result = await _mediator.Send(command);
+
                 return Ok(result);
             }
             catch (ApplicationException ex)
