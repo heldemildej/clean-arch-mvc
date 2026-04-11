@@ -69,7 +69,17 @@ namespace CleanArchMvc.Domain.Entities
 
         public void Update(string name, string description, decimal price, int stock, string img)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name is required");
+
+            if (price <= 0)
+                throw new ArgumentException("Invalid price value");
+
+            Name = name;
+            Description = description;
+            Price = price;
+            Stock = stock;
+            Img = img;
         }
 
         // Relação N:1 → cada produto pertence a uma categoria.
