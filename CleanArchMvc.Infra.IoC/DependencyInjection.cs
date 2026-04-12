@@ -6,6 +6,7 @@ using CleanArchMvc.Application.Services;
 using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Infra.Data.Context;
 using CleanArchMvc.Infra.Data.Repositories;
+using CleanArchMvc.Infra.IoC.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,7 @@ namespace CleanArchMvc.Infra.IoC
             services.AddScoped<IProductService, ProductService>();
             services.AddAutoMapper(typeof(DomainDTOMappingProfile));
             services.AddMediatR(typeof(ProductCreateCommandHandler).Assembly);
+            services.AddScoped<TokenService>();
 
             return services;
         }
