@@ -42,10 +42,7 @@ A solução está organizada em cinco projetos principais:
 
 ## Status do projeto
 
-Projeto concluído em termos de estrutura base e funcionalidades principais.
-
-Próximos passos possíveis incluem:
-- Implementação de autenticação com JWT
+Projeto concluído em termos de estrutura base, funcionalidades principais e implementação de autenticação com JWT
 
 
 ## Convenções de commit
