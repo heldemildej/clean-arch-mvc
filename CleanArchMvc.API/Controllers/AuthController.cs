@@ -1,28 +1,26 @@
-﻿using CleanArchMvc.Infra.IoC.Security;
-using Microsoft.AspNetCore.Authorization;
+﻿using CleanArchMvc.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace CleanArchMvc.API.Controllers
+[ApiController]
+[Route("api/auth")]
+public class AuthController : ControllerBase
 {
-   
-    [ApiController]
-    [AllowAnonymous]
-    [Route("api/auth")]
-    public class AuthController : ControllerBase
+    private readonly IAuthService _authService;
+
+    public AuthController(IAuthService authService)
     {
-        private readonly TokenService _tokenService;
+        _authService = authService;
+    }
 
-        public AuthController(TokenService tokenService)
-        {
-            _tokenService = tokenService;
-        }
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDTO login)
+    {
+        var token = await _authService.Login(login.Username, login.Password);
 
-        [AllowAnonymous]
-        [HttpGet("token")]
-        public IActionResult GetToken()
-        {
-            var token = _tokenService.GenerateToken();
-            return Ok(new { token });
-        }
+        if (token == null)
+            return Unauthorized("Invalid credentials");
+
+        return Ok(new { token });
     }
 }
