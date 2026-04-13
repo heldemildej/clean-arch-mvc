@@ -30,7 +30,10 @@ namespace CleanArchMvc.Infra.IoC
             services.AddScoped<IProductService, ProductService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMediatR(typeof(ProductCreateCommandHandler).Assembly);
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

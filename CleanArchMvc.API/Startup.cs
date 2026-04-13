@@ -1,5 +1,7 @@
 ﻿using CleanArchMvc.Application.Products.Handlers;
 using CleanArchMvc.Infra.IoC;
+using CleanArchMvc.Infra.Data.Seed;
+using CleanArchMvc.Infra.Data.Context;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -22,14 +24,10 @@ namespace CleanArchMvc.API
 
         public IConfiguration Configuration { get; }
 
- 
-        // ------------------CONFIGURE SERVICES----------------------
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-      
-            // --------------SWAGGER + JWT AUTH------------------------
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -38,7 +36,6 @@ namespace CleanArchMvc.API
                     Version = "v1"
                 });
 
-                // JWT SECURITY DEFINITION
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -49,7 +46,6 @@ namespace CleanArchMvc.API
                     Description = "Digite: Bearer {seu token}"
                 });
 
-                // GLOBAL REQUIREMENT (mostra cadeado)
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -66,13 +62,10 @@ namespace CleanArchMvc.API
                 });
             });
 
-            // MediatR
             services.AddMediatR(typeof(ProductCreateCommandHandler).Assembly);
 
-            // IoC (Infrastructure)
             services.AddInfrastructure(Configuration);
 
-            // JWT CONFIGURATION
             var key = Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -84,7 +77,6 @@ namespace CleanArchMvc.API
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(key)
@@ -94,7 +86,6 @@ namespace CleanArchMvc.API
             services.AddAuthorization();
         }
 
-        // CONFIGURE PIPELINE
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -114,6 +105,13 @@ namespace CleanArchMvc.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                DbSeeder.Seed(context);
+            }
 
             app.UseEndpoints(endpoints =>
             {
